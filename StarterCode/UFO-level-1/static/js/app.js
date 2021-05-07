@@ -23,14 +23,24 @@ function runEnter() {
     var inputValue = inputElement.property("value");
   
     console.log(inputValue);
-    //console.log(people);
   
     var filteredData = tableData.filter(vv => vv.datetime === inputValue);
   
     console.log(filteredData);
   
     // // BONUS: Calculate summary statistics for the age field of the filtered data
-  
+    var tableBody = d3.select("tbody");
+    
+    filteredData.forEach((info) => {
+        var eachRow = tableBody.append("tr");
+        Object.entries(info).forEach(([key, value]) => {
+          console.log(key, value);
+          var cell = eachRow.append("td");
+          cell.text(value);
+        });
+        console.log("----")
+      });
+
     // // First, create an array with just the age values
     // var ages = filteredData.map(person => person.age);
   
