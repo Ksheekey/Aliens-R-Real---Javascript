@@ -1,7 +1,8 @@
 // from data.js
 var tableData = data;
 console.log(tableData)
-// YOUR CODE HERE!
+console.log(tableData[0])
+console.log(tableData[0].city)
 
 var button = d3.select("#filter-btn");
 
@@ -18,14 +19,14 @@ function runEnter() {
     
     // Select the input element and get the raw HTML node
     var inputElement = d3.select("#datetime");
-  
+    
     // Get the value property of the input element
     var inputValue = inputElement.property("value");
-  
+    
     console.log(inputValue);
   
     var filteredData = tableData.filter(vv => vv.datetime === inputValue);
-  
+    
     console.log(filteredData);
   
     // // BONUS: Calculate summary statistics for the age field of the filtered data
@@ -41,4 +42,5 @@ function runEnter() {
         console.log("----")
       });
 
+    var filter2Data = filteredData.filter(xx=>xx.city === input2Value)
 };

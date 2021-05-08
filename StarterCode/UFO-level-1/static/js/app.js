@@ -1,14 +1,17 @@
 // from data.js
 var tableData = data;
-console.log(tableData)
+//console.log(tableData)
 // YOUR CODE HERE!
 
-var button = d3.select("#filter-btn");
+// Select the button
+var button = d3.select("#button");
 
+// Select the form
 var form = d3.select("#form");
 
+// Create event handlers 
 button.on("click", runEnter);
-form.on("submit", runEnter);
+form.on("submit",runEnter);
 
 // Complete the event handler function for the form
 function runEnter() {
@@ -23,22 +26,26 @@ function runEnter() {
     var inputValue = inputElement.property("value");
   
     console.log(inputValue);
-  
-    var filteredData = tableData.filter(vv => vv.datetime === inputValue);
-  
+    console.log(tableData)
+
+    var filteredData = tableData.filter(abc => abc.datetime === inputValue);
+    
     console.log(filteredData);
   
     // // BONUS: Calculate summary statistics for the age field of the filtered data
     var tableBody = d3.select("tbody");
-    
+    tableBody.html("")
     filteredData.forEach((info) => {
-        var eachRow = tableBody.append("tr");
-        Object.entries(info).forEach(([key, value]) => {
-          console.log(key, value);
-          var cell = eachRow.append("td");
-          cell.text(value);
-        });
-        console.log("----")
+      var row = tableBody.append("tr");
+      Object.entries(info).forEach(([key, value]) => {
+        console.log(value);
+        var cell = row.append("td");
+        cell.text(value);
       });
+      
+      console.log("----")
+    });
+
+    d3.select(".form-control").node().value = "";
 
 };
