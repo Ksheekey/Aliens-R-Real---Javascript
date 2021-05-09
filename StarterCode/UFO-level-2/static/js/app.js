@@ -1,46 +1,59 @@
 // from data.js
 var tableData = data;
-console.log(tableData)
-console.log(tableData[0])
-console.log(tableData[0].city)
+// console.log(tableData)
+// console.log(tableData[0])
+// console.log(tableData[0].city)
 
+//defining the form and button
 var button = d3.select("#filter-btn");
+button.on("click", run);
 
-var form = d3.select("#form");
+//creating function to run when filtered
+function run() {
 
-button.on("click", runEnter);
-form.on("submit", runEnter);
+  //prevent the page from reloading
+  d3.event.preventDefault();
+      
+  //defining variables
+  var inputEl = d3.select("#datetime");
+  var inputVal = inputEl.property("value");
+  var filteredData = tableData.filter(vv => vv.datetime === inputVal);
+  console.log(filteredData);
 
-// Complete the event handler function for the form
-function runEnter() {
+  //appointing where the code goes and 
+  //resetting the html
+  var tableBody = d3.select("tbody");
+  tableBody.html("")
 
-    // Prevent the page from refreshing
-    d3.event.preventDefault();
-    
-    // Select the input element and get the raw HTML node
-    var inputElement = d3.select("#datetime");
-    
-    // Get the value property of the input element
-    var inputValue = inputElement.property("value");
-    
-    console.log(inputValue);
-  
-    var filteredData = tableData.filter(vv => vv.datetime === inputValue);
-    
-    console.log(filteredData);
-  
-    // // BONUS: Calculate summary statistics for the age field of the filtered data
-    var tableBody = d3.select("tbody");
-    
-    filteredData.forEach((info) => {
-        var eachRow = tableBody.append("tr");
-        Object.entries(info).forEach(([key, value]) => {
-          console.log(key, value);
-          var cell = eachRow.append("td");
-          cell.text(value);
-        });
-        console.log("----")
-      });
+  //list to call for future
+  var abcxyz = []
 
-    var filter2Data = filteredData.filter(xx=>xx.city === input2Value)
+  //for each loop to find the date inputted
+  //this will not show on the screen until a 
+  //city is chosen. this will otput a list of
+  //the cities to choose from to filter both
+  filteredData.forEach((info) => {
+    abcxyz.push(info)
+    var eachRow = tableBody.append("tr");
+    Object.entries(info).forEach(([key, value]) => {
+      var cell = eachRow.append("td");
+      cell.text(value);
+      console.log(info.city)
+    });
+      
+  });
+
+  //defining vairables for the second filter (city)
+  var inputEl = d3.select("#city");
+  var inputVal = inputEl.property("value");
+  var abc = abcxyz.filter(vv => vv.city === inputVal);
+  tableBody.html("")
+  abc.forEach((flyers)=> {
+    var rowrow = tableBody.append("tr")
+    Object.entries(flyers).forEach(([key,value]) =>{
+      var cellcell = rowrow.append("td")
+      cellcell.text(value)
+    })
+  })      
+  //d3.select(".form-control").node().value = "";
 };
